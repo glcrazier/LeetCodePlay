@@ -46,3 +46,27 @@ class Solution(object):
                     addOneDigit = False
                     cur.val = val
         return result
+    
+    def findMedianSortedArrays(self, nums1, nums2):
+        l1 = len(nums1)
+        l2 = len(nums2)
+        aux = []
+        p1 = 0
+        p2 = 0
+        while p1 < l1 and p2 < l2:
+            if nums1[p1] < nums2[p2]:
+                aux.append(nums1[p1])
+                p1 = p1 + 1
+            else:
+                aux.append(nums2[p2])
+                p2 = p2 + 1
+        if p1 < l1:
+            aux.extend(nums1[p1:])
+        elif p2 < l2:
+            aux.extend(nums2[p2:])
+        l = l1 + l2
+        if l % 2 == 0:
+            r = l / 2
+            return (aux[r - 1] + aux[r]) / 2.0
+        else:
+            return aux[(l - 1) / 2]
