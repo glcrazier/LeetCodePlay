@@ -1,8 +1,4 @@
-class ListNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.next = None
-
+from util import ListNode
 class Solution(object):
     def addTwoNumbers(self, l1, l2):
         pL1 = l1
@@ -100,6 +96,36 @@ class Solution(object):
                     rl = v     
             i = i + 1
         return result
+
+    def mergeTwoLists(self, l1, l2):
+        p1 = l1
+        p2 = l2
+        head = None
+        c2 = None
+        while p1 is not None and p2 is not None:
+            if p1.val < p2.val:
+                cur = p1
+                p1 = p1.next
+            else:
+                cur = p2
+                p2 = p2.next
+            if head == None:
+                head = cur
+                c2 = head
+            else:
+                c2.next = cur
+                c2 = cur
+        else:
+            c3 = None
+            if p1 is not None:
+                c3 = p1
+            if p2 is not None:
+                c3 = p2
+            if head is None:
+                head = c3
+            else:
+                c2.next = c3 
+        return head
                     
             
                 

@@ -1,27 +1,5 @@
-from solution import ListNode
 from solution import Solution
-
-
-def buildSequeneces(seq):
-    result = None
-    for number in seq:
-        if result is None:
-            cur = ListNode(number)
-            result = cur
-        else:
-            node = ListNode(number)
-            cur.next = node
-            cur = node
-    return result
-
-def printList(s1):
-    p1 = s1
-    while p1 is not None:
-        if p1 is not s1:
-            print ' -> ',
-        print '%s' % p1.val,
-        p1 = p1.next
-    print '\n'
+from util import *
 
 def printResult(s1, s2, result):
     print 'Input:\n'
