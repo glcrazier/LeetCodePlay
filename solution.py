@@ -127,5 +127,43 @@ class Solution(object):
                 c2.next = c3 
         return head
                     
+    def maxArea(self, height):
+        start = 0
+        end = len(height)
+        result = 0
+        q = [(start, end)]
+        def maxSearch(s, e): 
+            i = s + 1
+            area = 0
+            a2 = 0
+            while i < e:
+                if height[i] >= height[s]:
+                    area = (i - s) * height[s]
+                    break
+                i = i + 1
+            else:
+                if s + 1 < e:
+                    area = height[s + 1]
+            if i < e:
+                q.append((i, e))
+            return area
+
+        while len(q) > 0:
+            arg = q[0]
+            q = q[1:]
+            v = maxSearch(arg[0], arg[1])
+            if v > result:
+                result = v
+        return result
             
-                
+    def maxArea2(self, height):
+        i = 0
+        j = len(height) - 1
+        water = 0
+        while i < j:
+            water = max(water, (j - i) * min(height[i], height[j]))
+            if height[i] < height[j]:
+                i += 1
+            else:
+                j -= 1
+        return water       
