@@ -70,3 +70,36 @@ class Solution(object):
             return (aux[r - 1] + aux[r]) / 2.0
         else:
             return aux[(l - 1) / 2]
+
+    def longestPalindrome(self, s):
+        l = len(s)
+        rl = 0
+        if l == 1:
+            return s
+        i = 0
+        result = s[i]
+        while i < (l - 1):
+            j = i - 1
+            k = i + 1
+            check = False
+            if s[i] == s[k]:
+                while k < l and s[k] == s[i]:
+                    k = k + 1
+                check = True                  
+            elif s[j] == s[k]:
+                check = True
+            if check == True:
+                while j >= 0 and k < l:
+                    if s[j] != s[k]:                         
+                        break
+                    j = j - 1
+                    k = k + 1
+                v = k - j - 1
+                if rl < v:
+                    result = s[j + 1:k]
+                    rl = v     
+            i = i + 1
+        return result
+                    
+            
+                
