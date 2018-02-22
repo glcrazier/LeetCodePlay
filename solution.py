@@ -167,3 +167,20 @@ class Solution(object):
             else:
                 j -= 1
         return water       
+
+    def swapPairs(self, head):
+        vhead = ListNode(0)
+        vhead.next = head
+        left = vhead
+        middle = head
+        right = None
+        while middle is not None:
+            right = middle.next
+            if right is None:
+                break
+            middle.next = right.next
+            left.next = right
+            right.next = middle
+            left = middle
+            middle = left.next
+        return vhead.next
