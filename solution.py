@@ -1,4 +1,5 @@
 from util import ListNode
+from util import printList
 class Solution(object):
     def addTwoNumbers(self, l1, l2):
         pL1 = l1
@@ -183,4 +184,38 @@ class Solution(object):
             right.next = middle
             left = middle
             middle = left.next
+        return vhead.next
+
+    def reverseKGroup(self, head, k):
+        if k < 2:
+            return head
+        vhead = ListNode(0)
+        vhead.next = head
+        #search for next k nodes
+        def hasNodes(nodeHead, numNodes):
+            c = nodeHead.next
+            while numNodes > 0:
+                if c is None:
+                    return False
+                c = c.next
+                numNodes = numNodes - 1
+            return True
+        def reverseNodes(nodeHead, numNodes):
+            c0 = nodeHead
+            c1 = c0.next
+            c2 = c1.next
+            c3 = c1
+            n = numNodes - 1
+            while n > 0:
+                t = c2.next
+                c2.next = c1
+                c0.next = c2
+                c1 = c2
+                c2 = t 
+                n = n - 1
+            c3.next = t
+            return c3
+        cur = vhead
+        while hasNodes(cur, k) is True:
+            cur = reverseNodes(cur, k)
         return vhead.next
