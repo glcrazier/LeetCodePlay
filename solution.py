@@ -219,3 +219,19 @@ class Solution(object):
         while hasNodes(cur, k) is True:
             cur = reverseNodes(cur, k)
         return vhead.next
+
+    def removeElement(self, nums, val):
+        if nums is None:
+            return 0
+        dupCount = 0
+        i = 0
+        l = len(nums)
+        while i < l:
+            nums[i] = nums[i + dupCount]
+            if nums[i] == val:
+                l = l - 1
+                dupCount = dupCount + 1
+                i = i - 1
+            i = i + 1
+        return l
+            
