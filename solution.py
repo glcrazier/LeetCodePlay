@@ -234,4 +234,62 @@ class Solution(object):
                 i = i - 1
             i = i + 1
         return l
-            
+
+    def longestValidParentheses(self, s):
+        lc = 0
+        rc = 0
+        maxl = 0
+        d = 0
+        pos = 0
+        length = len(s)
+        while pos < length:
+            i = s[pos]
+            if i == '(':
+                lc = lc + 1
+            elif i == ')':
+                rc = rc + 1
+                d = lc - rc
+                if d < 0:
+                    if lc > maxl:
+                        maxl = lc
+                    rc = 0
+                    lc = 0
+                elif d >= 1:
+                    lc1 = d
+                    rc1 = 0
+                    if pos == len(s) - 1:
+                        if rc - 1 > maxl:
+                            maxl = rc - 1
+                        elif maxl < 1:
+                            maxl = 1
+                        lc = rc = 0
+                    else:
+                        j = pos + 1
+                        while j < length:
+                            if s[j] == '(':
+                                lc1 = lc1 + 1
+                            else:
+                                rc1 = rc1 + 1
+                            if lc1 == rc1:
+                                break
+                            j = j + 1
+                        if lc1 != rc1:
+                            if rc - 1 > maxl:
+                                maxl = rc - 1
+                            elif maxl < 1:
+                                maxl = 1
+                            lc = rc = 0
+                            pos = pos - d - 1
+                        else:
+                            rc = rc1 + rc
+                            lc = rc
+                            pos = j
+            pos = pos + 1
+        if lc >= rc:
+            if rc > maxl:
+                maxl = rc
+        return maxl * 2
+                        
+                
+
+
