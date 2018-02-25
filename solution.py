@@ -289,7 +289,22 @@ class Solution(object):
             if rc > maxl:
                 maxl = rc
         return maxl * 2
-                        
+    def permuteUnique(self, nums):
+        pass
+
+    def searchInsert(self, nums, target):
+        i = 0
+        j = len(nums) - 1
+        while i <= j:
+            m = i + (j - i) / 2
+            v = nums[m]
+            if v == target:
+                return m
+            elif target > v:
+                i = m + 1
+            else:
+                j = m - 1
+        return i    
                 
 
 
