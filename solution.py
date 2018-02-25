@@ -373,3 +373,16 @@ class Solution(object):
             last = cur
             i = i + 1
         return result   
+
+    def firstMissingPositive(self, nums):
+        l = len(nums)
+        vector = [0] * l
+        for i in nums:
+            if i <= l and i >= 1:
+                vector[i - 1] = 1
+        j = 0
+        while j < l:
+            if vector[j] == 0:
+                return j + 1;
+            j = j + 1
+        return l + 1
