@@ -334,3 +334,42 @@ class Solution(object):
             backtrack([candidates[i]], i, target - candidates[i])
             i = i + 1
         return result
+    
+    def combinationSum2(self, candidates, target):
+        result = []
+        length = len(candidates)
+        candidates = sorted(candidates)
+        def backtrack(a, k, t):
+            if t == 0:
+                result.append(a)
+                return 
+            if t < 0:
+                return
+            j = k + 1
+            la = len(a)
+            lac = -1
+            while j < length:
+                c = candidates[j]
+                if c == lac:
+                    j = j + 1
+                    continue
+                lac = c
+                r = t - c
+                if r == 0:
+                    s = list(a)
+                    s.append(c)
+                    result.append(s)
+                elif r > 0:
+                    a.append(c)
+                    backtrack(a, j, r)
+                    a = a[:la]
+                j = j + 1
+        i = 0
+        last = -1
+        while i < length:
+            cur = candidates[i]
+            if last != cur:
+                backtrack([cur], i, target - cur)
+            last = cur
+            i = i + 1
+        return result   
