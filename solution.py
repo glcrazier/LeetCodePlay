@@ -306,5 +306,31 @@ class Solution(object):
                 j = m - 1
         return i    
                 
-
-
+    def combinationSum(self, candidates, target):
+        result = []
+        length = len(candidates)
+        def backtrack(a, k, t):
+            if t == 0:
+                result.append(a)
+                return 
+            if t < 0:
+                return
+            j = k
+            la = len(a)
+            while j < length:
+                c = candidates[j]
+                r = t - c
+                if r == 0:
+                    s = list(a)
+                    s.append(c)
+                    result.append(s)
+                elif r > 0:
+                    a.append(c)
+                    backtrack(a, j, r)
+                    a = a[:la]
+                j = j + 1
+        i = 0
+        while i < length:
+            backtrack([candidates[i]], i, target - candidates[i])
+            i = i + 1
+        return result
