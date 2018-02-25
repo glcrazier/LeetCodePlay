@@ -386,3 +386,18 @@ class Solution(object):
                 return j + 1;
             j = j + 1
         return l + 1
+
+    def myPow(self, x, n):
+        if n == 1:
+            return x
+        if n == 0:
+            return 1
+        if n < 0:
+            return 1/self.myPow(x, -n)
+        if n % 2 == 0:
+            s = self.myPow(x, n/2)
+            return s * s
+        else:
+            s1 = self.myPow(x, n/2)
+            s2 = s1 * x
+            return s1 * s2
