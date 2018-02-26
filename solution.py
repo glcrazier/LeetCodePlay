@@ -401,3 +401,47 @@ class Solution(object):
             s1 = self.myPow(x, n/2)
             s2 = s1 * x
             return s1 * s2
+    def rotateRight(self, head, k):
+        # reverse first
+        if k == 0 or head is None:
+            return head
+        c = head
+        n = c.next
+        l = 1
+        while n is not None:
+            s = n.next
+            n.next = c
+            c = n
+            n = s
+            l = l + 1
+        head.next = None
+        head = c
+        # count k
+        k = k % l
+        j = 0
+        findK = None
+        findK3 = None
+        while j < k:
+            findK3 = c
+            findK = c.next
+            c = c.next
+            j = j + 1
+        findK2 = head
+        # print 'k1 %d' % findK.val
+        # print 'k2 %d' % findK2.val
+        c = head
+        n = c.next
+        while n is not None:
+            s = n.next
+            n.next = c
+            c = n
+            n = s
+        head.next = None
+        head = c
+        if k != 0:
+            findK2.next = head
+            findK.next = None
+        else:
+            return head
+        head = findK
+        return findK3
