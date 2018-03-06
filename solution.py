@@ -1,5 +1,6 @@
 from util import ListNode
 from util import printList
+import time
 class Solution(object):
     def addTwoNumbers(self, l1, l2):
         pL1 = l1
@@ -402,7 +403,7 @@ class Solution(object):
             s2 = s1 * x
             return s1 * s2
     def rotateRight(self, head, k):
-        # reverse first
+        # reverse
         if k == 0 or head is None:
             return head
         c = head
@@ -427,8 +428,7 @@ class Solution(object):
             c = c.next
             j = j + 1
         findK2 = head
-        # print 'k1 %d' % findK.val
-        # print 'k2 %d' % findK2.val
+        # reverse again
         c = head
         n = c.next
         while n is not None:
@@ -438,10 +438,100 @@ class Solution(object):
             n = s
         head.next = None
         head = c
+        # rotate
         if k != 0:
             findK2.next = head
             findK.next = None
         else:
             return head
-        head = findK
         return findK3
+
+    def threeSum(self, nums):
+        nums = sorted(nums)
+        nlen = len(nums)
+        i = 0
+        if nlen < 3:
+            return []
+        mk1 = 0
+        mk2 = nlen - 1
+        lastNum = nums[-1]
+        while mk1 <= mk2:
+            md = mk1 + (mk2 - mk1) / 2
+            if nums[md] == 0:
+                mk1 = md
+                break
+            elif nums[md] > 0:
+                mk2 = md - 1
+            else:
+                mk1 = md + 1
+        indexOfFirstNonNegative = mk1
+        if mk1 > mk2:
+            indexOfFirstNonNegative = mk2
+        last = nums[0] - 1
+        result = []
+        while i < nlen:
+            cur = nums[i]
+            if cur > 0:
+                break
+            if last == cur:
+                i = i + 1
+                continue
+            last = cur
+            j = i + 1
+            if -cur > lastNum:
+                j = indexOfFirstNonNegative
+            maxj = nlen
+            lastj = nums[0] - 1
+            lastmd = nlen - 1
+            while j < maxj:
+                curj = nums[j]
+                target = curj + cur
+                if target > 0:
+                    break
+                if lastj == curj:
+                    j = j + 1
+                    continue
+                lastj = curj
+                target = -target
+                if target > lastNum:
+                    j = j + 1
+                    continue
+                if target < curj:
+                    break
+                tk1 = j + 1
+                if tk1 < indexOfFirstNonNegative:
+                    tk1 = indexOfFirstNonNegative
+                tk2 = lastmd
+                while tk1 <= tk2:
+                    md = tk1 + (tk2 - tk1) / 2
+                    mdd = nums[md]
+                    if target == mdd:
+                        result.append([cur, curj, mdd])
+                        lastmd = md - 1
+                        break
+                    elif target > mdd:
+                        tk1 = md + 1
+                    else:
+                        tk2 = md - 1
+                j = j + 1 
+            i = i + 1
+        return result
+                
+    def jump(self, nums):
+        nlen = len(nums)
+        result = [0] * nlen 
+        i = 0
+        while i < nlen:
+            maxj = nums[i]
+            j = 1
+            cur = result[i]
+            while j <= maxj:
+                idx = i + j
+                if idx >= nlen:
+                    break
+                c = cur + 1
+                if result[idx] > c or result[idx] == 0:
+                    result[idx] = c
+                j = j + 1
+            i = i + 1
+        return result[-1]
