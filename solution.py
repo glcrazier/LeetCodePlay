@@ -535,3 +535,16 @@ class Solution(object):
                 j = j + 1
             i = i + 1
         return result[-1]
+
+    def lengthOfLastWord(self, s):
+        lastLength = 0
+        reset = False
+        for c in s:
+            if c == ' ':
+                reset = True
+            else:
+                if reset is True:
+                    lastLength = 0
+                    reset = False
+                lastLength = lastLength + 1
+        return lastLength
