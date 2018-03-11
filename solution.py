@@ -1,5 +1,6 @@
 from util import ListNode
 from util import printList
+from util import Interval
 import time
 class Solution(object):
     def addTwoNumbers(self, l1, l2):
@@ -548,3 +549,40 @@ class Solution(object):
                     reset = False
                 lastLength = lastLength + 1
         return lastLength
+
+    def canJump(self, nums):
+        queue = []
+        queue.append(0)
+        con = len(nums) - 1
+        records = [False] * len(nums)
+        records[0] = True
+        while len(queue) > 0:
+            # print queue
+            pos = queue.pop()
+            num = nums[pos]
+            if pos + num >= con:
+                return True
+            for i in range(1, num + 1):
+                if records[pos + i] == False:
+                    queue.append(pos + i)
+                    records[pos + i] = True
+        return False
+
+    def merge(self, intervals):
+        intervals.sort(cmp=lambda x,y: cmp(x.start,y.start))
+        i = 1
+        result = []
+        length = len(intervals)
+        if length == 0:
+            return result
+        current = intervals[0]
+        while i < length:
+            nex = intervals[i]
+            if nex.start > current.end:
+                result.append(current)
+                current = nex
+            elif nex.end > current.end:
+                current.end = nex.end
+            i = i + 1
+        result.append(current)
+        return result

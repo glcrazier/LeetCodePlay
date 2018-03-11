@@ -2,6 +2,17 @@ class ListNode(object):
     def __init__(self, x):
         self.val = x
         self.next = None
+
+class Interval(object):
+    def __init__(self, s=0, e=0):
+        self.start = s
+        self.end = e
+
+    def __str__(self):
+        return '[%d, %d]' % (self.start, self.end)
+
+    def __repr__(self):
+        return self.__str__()
         
 def buildSequeneces(seq):
     result = None
