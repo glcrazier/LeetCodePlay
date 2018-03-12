@@ -596,3 +596,30 @@ class Solution(object):
             first = t
         return second
             
+    def rotate(self, matrix):
+        #xr = n - 1 - y
+        #yr = x
+        x = 0
+        y = 0
+        n = len(matrix[0])
+        for y in range(0, n/2):
+            for x in range(y, n - y - 1):
+                xr = n - 1 - y
+                yr = x
+                t = matrix[y][x]
+                tx = x
+                ty = y
+                flag = True
+                # print 'begin %d %d' % (tx, ty)
+                while (tx != x or ty != y) or flag:
+                    flag = False
+                    s = matrix[yr][xr]
+                    matrix[yr][xr] = t
+                    t = s
+                    tx = xr
+                    ty = yr
+                    xr = n - 1 - ty
+                    yr = tx
+                    # print 'current %d %d, next %d %d' % (tx, ty, xr, yr)
+                # print 'end'
+        return matrix
