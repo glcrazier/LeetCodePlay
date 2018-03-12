@@ -586,3 +586,13 @@ class Solution(object):
             i = i + 1
         result.append(current)
         return result
+
+    def climbStairs(self, n):
+        first = 0
+        second = 1
+        for i in range(0, n):
+            t = second
+            second = first + second
+            first = t
+        return second
+            
