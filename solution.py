@@ -623,3 +623,25 @@ class Solution(object):
                     # print 'current %d %d, next %d %d' % (tx, ty, xr, yr)
                 # print 'end'
         return matrix
+
+    def groupAnagrams(self, strs):
+        ca = ord('a')
+        rdict = {}
+        for s in strs:
+            code = [0] * 26
+            for c in s:
+                idx = ord(c) - ca
+                code[idx] = code[idx] + 1
+            i = 0
+            val = ''
+            while i < len(code):
+                ci = code[i]
+                if ci > 0:
+                    for j in range(0, ci):
+                        val = val + chr(ca + i)
+                i = i + 1
+            if val in rdict:
+                rdict[val].append(s)
+            else:
+                rdict[val] = [s]
+        return rdict.values()
