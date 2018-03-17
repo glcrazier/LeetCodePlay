@@ -645,3 +645,37 @@ class Solution(object):
             else:
                 rdict[val] = [s]
         return rdict.values()
+
+    def divide(self, dividend, divisor):
+        sign = True
+        if divisor == 0:
+            import sys
+            return sys.maxint
+        if dividend < 0:
+            dividend = -dividend
+            sign = False
+        if divisor < 0:
+            divisor = -divisor
+            if sign:
+                sign = False
+            else:
+                sign = True
+        result = 0
+        remain = dividend - divisor
+        ndivisor = divisor
+        mul = 1
+        while remain >= 0:
+            result = result + mul
+            ndivisor = ndivisor + divisor
+            r = remain - ndivisor
+            if r > 0:
+                mul = mul + 1
+            else: 
+                r = remain - divisor
+                mul = 1
+            remain = r
+        if sign:
+            return result
+        else:
+            return -result
+        
