@@ -679,3 +679,25 @@ class Solution(object):
         else:
             return -result
         
+    def findSubstring(self, s, words):
+        #compute value for each word and sort them
+        values = []        
+        #scan the string and compute substring value
+        pass
+
+    def generateParenthesis(self, n):
+        sn = n * 2
+        result = []
+        def compute(cur, val, num):
+            # print 'calculate %s, %s, %s' % (cur, val, num)
+            if num > sn:
+                return
+            if num == sn and val == 0:
+                result.append(cur)
+                return
+            if val < 0:
+                return
+            compute(cur + '(', val + 1, num + 1)
+            compute(cur + ')', val - 1, num + 1)
+        compute('(', 1, 1)
+        return result
