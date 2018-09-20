@@ -701,3 +701,40 @@ class Solution(object):
             compute(cur + ')', val - 1, num + 1)
         compute('(', 1, 1)
         return result
+
+    def isValidSudoku(self, board):
+        # row check
+        for i in range(0, 9):
+            checkVector = [0] * 9
+            for j in board[i]:
+                if j != '.':
+                    ij = int(j) - 1
+                    if checkVector[ij] == 1:
+                        return False
+                    else:
+                        checkVector[ij] = 1
+        # column check
+        for i in range(0, 9):
+            checkVector = [0] * 9
+            for j in range(0, 9):
+                k = board[j][i]
+                if k != '.':
+                    ik = int(k) - 1
+                    if checkVector[ik] == 1:
+                        return False
+                    else:
+                        checkVector[ik] = 1
+        # grid check
+        for i in range(0, 9):
+            checkVector = [0] * 9
+            ir = i / 3
+            ic = i % 3
+            for j in range(0, 9):
+                k = board[ir * 3 + j / 3][ic * 3 + j % 3]
+                if k != '.':
+                    ik = int(k) - 1
+                    if checkVector[ik] == 1:
+                        return False
+                    else:
+                        checkVector[ik] = 1
+        return True
